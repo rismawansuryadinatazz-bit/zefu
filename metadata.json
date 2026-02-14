@@ -1,0 +1,6 @@
+{
+  "name": "STOCK LAUNDRY PRO @SURYADINATA 2026",
+  "description": "Sistem ERP Inventaris Laundry tingkat lanjut dengan sinkronisasi Google Sheets dan kontrol akses berbasis peran (Admin, Leader, Staff).",
+  "version": "2.0.0",
+  "requestFramePermissions": []
+}
