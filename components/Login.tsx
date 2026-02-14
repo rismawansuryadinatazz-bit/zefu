@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { UserRole } from '../types';
 
@@ -10,7 +9,7 @@ interface LoginProps {
   setTheme: (t: 'light' | 'dark') => void;
   t: (key: string) => string;
   error?: string | null;
-  setError: (e: string | null) => void; // Added to clear errors
+  setError: (e: string | null) => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, t, error, setError }) => {
@@ -27,7 +26,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, 
 
   const handleBack = () => {
     setSelectedRole(null);
-    setError(null); // Clear login error when switching categories
+    setError(null);
   };
 
   const getRoleColor = (role: UserRole) => {
@@ -50,7 +49,6 @@ const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, 
 
   return (
     <div className={`min-h-screen flex items-center justify-center p-4 transition-all duration-700 ${theme === 'dark' ? 'bg-slate-950' : 'bg-slate-50'}`}>
-      {/* Dynamic Security Aura */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className={`absolute top-[-20%] left-[-20%] w-[60%] h-[60%] rounded-full blur-[160px] opacity-20 transition-all duration-1000 ${
           selectedRole === UserRole.ADMIN ? 'bg-indigo-500' : 
@@ -87,12 +85,12 @@ const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, 
                     onClick={() => setSelectedRole(item.role)}
                     className={`group flex items-center p-6 rounded-3xl border-2 transition-all text-left ${
                       theme === 'dark' 
-                        ? `bg-slate-800/50 border-white/5 hover:border-${item.color}-500/50 hover:bg-slate-800` 
-                        : `bg-white border-black/5 hover:border-${item.color}-500/50 hover:bg-${item.color}-50/50`
+                        ? `bg-slate-800/50 border-white/5 hover:border-indigo-500/50 hover:bg-slate-800` 
+                        : `bg-white border-black/5 hover:border-indigo-500/50 hover:bg-indigo-50/50`
                     }`}
                   >
                     <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-xl transition-all group-hover:scale-110 ${
-                      theme === 'dark' ? `bg-${item.color}-500/10 text-${item.color}-400` : `bg-${item.color}-100 text-${item.color}-600`
+                      theme === 'dark' ? `bg-indigo-500/10 text-indigo-400` : `bg-indigo-100 text-indigo-600`
                     }`}>
                       <i className={`fas ${item.icon}`}></i>
                     </div>
@@ -131,10 +129,12 @@ const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, 
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className={`block text-[10px] font-black uppercase tracking-[0.2em] ml-1 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>{t('username')}</label>
+                  <label htmlFor="username" className={`block text-[10px] font-black uppercase tracking-[0.2em] ml-1 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>{t('username')}</label>
                   <div className="relative group">
                     <i className={`fas fa-id-badge absolute left-5 top-1/2 -translate-y-1/2 transition-colors ${theme === 'dark' ? 'text-slate-600 group-focus-within:text-indigo-400' : 'text-slate-300 group-focus-within:text-indigo-500'}`}></i>
                     <input 
+                      id="username"
+                      name="username"
                       type="text" 
                       autoFocus
                       value={username}
@@ -151,10 +151,12 @@ const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, 
                 </div>
 
                 <div className="space-y-2">
-                  <label className={`block text-[10px] font-black uppercase tracking-[0.2em] ml-1 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>{t('password')}</label>
+                  <label htmlFor="password" className={`block text-[10px] font-black uppercase tracking-[0.2em] ml-1 ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>{t('password')}</label>
                   <div className="relative group">
                     <i className={`fas fa-key absolute left-5 top-1/2 -translate-y-1/2 transition-colors ${theme === 'dark' ? 'text-slate-600 group-focus-within:text-indigo-400' : 'text-slate-300 group-focus-within:text-indigo-500'}`}></i>
                     <input 
+                      id="password"
+                      name="password"
                       type="password" 
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -182,10 +184,6 @@ const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, 
                   <i className="fas fa-lock-open mr-2"></i>
                   {t('signIn')}
                 </button>
-                <div className="flex items-center justify-center space-x-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                  <i className="fas fa-shield-check text-green-500"></i>
-                  <span>{t('secureSession')}</span>
-                </div>
               </div>
             </form>
           )}
@@ -204,20 +202,6 @@ const Login: React.FC<LoginProps> = ({ onLogin, theme, lang, setLang, setTheme, 
           </div>
         </div>
       </div>
-      
-      <style>{`
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-5px); }
-          75% { transform: translateX(5px); }
-        }
-        .animate-shake { animation: shake 0.4s ease-in-out; }
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-slideUp { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-      `}</style>
     </div>
   );
 };
